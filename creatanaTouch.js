@@ -9,9 +9,8 @@ if(typeof(creaTouch) == "undefined"){
 /*refresh rate in miliseconds*/
    creaTouch[0].refreshRate=17;
    creaTouch[0].refreshRateN=creaTouch[0].refreshRate;
+/*in miliseconds*/    
    creaTouch[0].swipeMaxTime=300;
-/*in miliseconds*/
-/*Higher is smaller angle to trigger X swipe 1=90 degree angle left or right. higher = 90/number */      
    creaTouch[0].touchSmoothOriginal=2;
    creaTouch[0].momentumMultiplier=20;
    creaTouch[0].scrollReturned=false;
@@ -56,17 +55,16 @@ function creatanaTouch(args){
   creaTouch[0].starting=true;
 
   creaTouch[iX].touchMove=false;
-    /*findScrollingParent for Y*/
-    //findScrollParentY returns creaTouch[iX] or the first parent that has overflow:scroll or overflow-y:scroll, or document.body if overflow is not hidden
+    /*find scrolling parent for Y*/
   creaTouch[iX].scrollrY=findScrollParentY(e);
        //momentum cap
   creaTouch[iX].scrollYmax=creaTouch[iX].scrollrY.offsetHeight;
-   //findScrollParentX returns creaTouch[iX] or the first parent that has overflow-x:scroll, or document.body if overflow is not hidden
+   //find scrolling parent for X
   creaTouch[iX].scrollrX=findScrollParentX(e);
        //momentum cap
   creaTouch[iX].scrollXmax=creaTouch[iX].scrollrX.offsetWidth;
      
-      //tells us quickly later if there is no X, or no Y swiping for more responsive scrolling.
+      //tells quickly later if there is no X, or no Y swiping for more responsive scrolling.
 //X
   if (creaTouch[iX].rightSwipeFunction==false && creaTouch[iX].leftSwipeFunction==false){
       creaTouch[iX].noXoriginal=true; }
@@ -82,7 +80,7 @@ function creatanaTouch(args){
   if(!creaTouch[iX].xSwipeAngle || creaTouch[iX].xSwipeAngle==0){creaTouch[iX].xSwipeAngle=1}
   if(!creaTouch[iX].xSwipeSpeed){creaTouch[iX].xSwipeSpeed=100}
    
-      //converts angle degrees to usable numbers for later
+      //convert angle degrees to usable numbers
   creaTouch[iX].xSwipeAngle=1/(creaTouch[iX].xSwipeAngle/90);
 
     //again for Y
@@ -96,26 +94,24 @@ function creatanaTouch(args){
 
   if(creaTouch[iX].scrollrX){creaTouch[iX].scrollrX.addEventListener("touchstart", function(event){parentTouchX(event, this);}, false);}
   if(creaTouch[iX].scrollrY){creaTouch[iX].scrollrY.addEventListener("touchstart", function(event){parentTouchY(event, this);}, false);}
-    /*add Touchstart event listener to creaTouch[iX]*/
+
   e.addEventListener("touchstart", function(event){touchStart(event, this);}, false);
-  e.addEventListener("wheel", function(event){wheelAction(event, this);}, false);
-    /*add touch move and touch end event listener*/
+
   e.addEventListener("touchmove", function(event){swipetracker(event, this);}, false);
-    //   creaTouch[iX].addEventListener("touchcancel", function(){touchEnd(e)}, false);
   
   e.addEventListener("touchend", function(){touchEnd(e);}, false);
 
- 
+  e.addEventListener("wheel", function(event){wheelAction(event, this);}, false);
    
    
    
-      // findScrollChildX returns an array of child elements that have  overflow-x:scroll, then onswipe(scrollChildX[i])
+      // check for child elements that scroll X
   scrollChildX=findScrollChildX(e);
   for(i=0;i<scrollChildX.length;i++){
       // activate scrolling on child elements
      onswipe(scrollChildX[i]);
   }
-   // findScrollChildY returns an array of child elements that have  overflow:scroll or overflow-y:scroll
+      // check for child elements that scroll Y
   scrollChildY=findScrollChildY(e);
   for(i=0;i<scrollChildY.length;i++){
      onswipe(scrollChildY[i]);
@@ -126,12 +122,14 @@ function creatanaTouch(args){
     //realParentDown(e) returns the first child with more than 1 child
   childrenContainer=realParentDown(e);
   childrenContainer.creatanaTouchInstance=e.creatanaTouchInstance;
+  //Assign creatanaTouchInstance to parents
   creaTouch[iX].scrollrX.creatanaTouchInstance=e.creatanaTouchInstance;
   creaTouch[iX].scrollrY.creatanaTouchInstance=e.creatanaTouchInstance;
   //next
   snapChildren=childrenContainer.children;
   snapChildrenSub=[];
   
+  // dampen momentum for slideshow
   if(creaTouch[iX].xSlideshow==true ){
 	creaTouch[iX].momentumMultiplier=10;
   }else{
@@ -275,9 +273,9 @@ function docbodytouch(event, e){
    
 function touchStart(event, e){
   console.log(event, e);
-    //we only care about the lowest level element, the actual element that was touched, not the parents.
+    //we only care about the actual element that was touched, not the parents.
   event.stopPropagation();
-    //set e.creatanaTouchInstance
+  
   var iX = e.creatanaTouchInstance
 
   creaTouch[iX].swiped = false;
@@ -330,10 +328,11 @@ function swipetracker(event, e){
   var iX = e.creatanaTouchInstance;
   if(creaTouch[iX].swiped != true){
    
-   /*stops scrolling on browsers that otherwise would scroll with this code*/
- if(iOS==false){  event.preventDefault();
-  event.stopPropagation();
-                 }
+   /*stop stock scrolling*/
+ if(iOS==false){  
+   event.preventDefault();
+   event.stopPropagation();
+  }
   bodytouch=false;
    /*check if scroll is animating and stop here if it is*/
   
@@ -346,10 +345,10 @@ function swipetracker(event, e){
 	    /*measure time between this and touchstart*/
       creaTouch[iX].timeZ[2] =timeN-creaTouch[iX].timeZ[0];
       creaTouch[iX].ect=event.targetTouches[0];
-      /*measures X distance between this and previous touchmove*/
+      /*measure X distance between this and previous touchmove*/
       creaTouch[iX].XtouchZ[1]=(creaTouch[iX].XtouchZ[0]-creaTouch[iX].ect.screenX);
       creaTouch[iX].XtouchZ[0]=event.targetTouches[0].screenX;
-	/*measures Y distance between this and previous touchmove*/
+	/*measure Y distance between this and previous touchmove*/
       creaTouch[iX].YtouchZ[1]=(creaTouch[iX].YtouchZ[0]-creaTouch[iX].ect.screenY);
       creaTouch[iX].YtouchZ[0]=event.targetTouches[0].screenY;
 	/*negative to positive*/
@@ -374,7 +373,7 @@ function swipetracker(event, e){
 	/*if X scrolling is already active, this is all we need to do.*/
 	  creaTouch[iX].XchangeSub=creaTouch[iX].XtouchZ[1];
       }else{
-	/*if movement is mostly X and Y is not scrolling*/
+	/*if movement is mostly X and Y is not scrolling, set motion to X*/
 	  if(creaTouch[iX].YtouchZ[1] < creaTouch[iX].XtouchZ[1] && creaTouch[iX].scrollY==false){      
 	  creaTouch[iX].Ymove=false;creaTouch[iX].Xmove=true;creaTouch[iX].noY=true;creaTouch[iX].noX=creaTouch[iX].noXb;
 	  creaTouch[iX].XchangeSub=creaTouch[iX].XtouchZ[1];
@@ -394,7 +393,7 @@ function swipetracker(event, e){
       if(  creaTouch[iX].timeZ[2]>creaTouch[0].swipeMaxTime ){creaTouch[iX].noX=true;creaTouch[iX].noY=true;}
 	  //if we're still looking for swipe actions
       if(  creaTouch[iX].noX==false){
-	    //if angle, speed, and creaTouch[0].swipeMaxTime meet requirements
+	    //if angle, speed, and .swipeMaxTime meet requirements
 	if( creaTouch[iX].XtouchZ[1]>=creaTouch[iX].xSwipeSpeed  && creaTouch[iX].YtouchZ[1] < (creaTouch[iX].XtouchZ[1]/creaTouch[iX].xSwipeAngle) && creaTouch[iX].timeZ[2]<=creaTouch[0].swipeMaxTime){
 	  creaTouch[iX].Xswipe.push(true);
 	}
@@ -446,17 +445,17 @@ function swipetracker(event, e){
 	  if(creaTouch[iX].scrollrY.scrollAnimate==true){return}
 	  creaTouch[iX].scrollAnimate=true;
 	  creaTouch[iX].scrollrY.scrollAnimate=true;
-	  //creaTouch[iX].touchSmooth is only for when a finger is on the screen still. next we divide by it to animate between points
+	  //.touchSmooth divide to animate between points when a finger is on the screen still.
 	  creaTouch[iX].scrollTotalY=creaTouch[iX].YchangeSub/creaTouch[iX].touchSmooth;
-	  //shorten and save as a number
+	  
 	  creaTouch[iX].Yprev1=creaTouch[iX].scrollrY.scrollTop;
 	    
 	  if(creaTouch[iX].scrollrY.subDown==true){
 	    //set the stop point
 	    creaTouch[iX].YchangeSub0=creaTouch[iX].Yprev1+creaTouch[iX].YchangeSub;
-	    //define the animation loop function
+	    //animation loop
 	    function loop1(){
-	      //get time in miliseconds (MS) in the begining of the loop
+	      //get time
 	      creaTouch[iX].timeR1=new Date().getTime();
 	      //calculate & set the next scrollTop position
 	      creaTouch[iX].v1=creaTouch[iX].Yprev1+creaTouch[iX].scrollTotalY;
@@ -464,7 +463,6 @@ function swipetracker(event, e){
 	    
 	      //check if scrolling is still needed
 	      if(creaTouch[iX].v1<creaTouch[iX].YchangeSub0){
-		//if it is still needed
 		//set creaTouch[iX].Yprev1 to v because next time around it will be the prev1ious Y position
 		creaTouch[iX].Yprev1=creaTouch[iX].v1;
 		//get the time in MS again at the end of the loop, then calculate how many MS have passed
@@ -473,7 +471,7 @@ function swipetracker(event, e){
 		if(creaTouch[iX].timeR3>creaTouch[0].refreshRate){
 		  creaTouch[iX].timeR3=creaTouch[0].refreshRate;creaTouch[iX].touchSmooth=1;
 		}else{creaTouch[iX].touchSmooth=creaTouch[0].touchSmoothOriginal}
-		  //execute loop again after the time specified in creaTouch[0].refreshRate in the global variables minus the time passed during this loop: creaTouch[0].refreshRate-creaTouch[iX].timeR3
+		  //execute loop again after the time specified in .refreshRate minus the time passed during this loop
 		setTimeout(function(){ loop1();} , creaTouch[0].refreshRate-creaTouch[iX].timeR3);
 		return;
 	      }
@@ -488,8 +486,8 @@ function swipetracker(event, e){
 	      //now that loop1() is defined, execute
 	    loop1();return;
 	  }else{ 
-	      //this means creaTouch[iX].scrollrY.subDown was false so creaTouch[iX].scrollrY.subUp must be true, micro-optimization was necessary due to the real time nature of this code, so things like this are intentionally missing, and else statements are used instead
-	      //everything here is the same as creaTouch[iX].scrollrY.subDown except that all math related to scrolling is opposite + is -, and < is >
+	      //Y was true, but .subDown was false so .subUp must be true, 
+	      //everything here is the same as .subDown except that all math related to scrolling is opposite. ( + is -, and < is > )
 	      creaTouch[iX].YchangeSub0=creaTouch[iX].Yprev1-creaTouch[iX].YchangeSub;
 	      
 	      function loop2(){
@@ -608,7 +606,7 @@ function touchEnd(e){
    creaTouch[iX].scrollrX.touchActive=false;creaTouch[iX].scrollrY.scrollReturned=false;creaTouch[iX].scrollrX.scrollReturned=false;
    creaTouch[iX].touchActive=false;
   
-   //set creaTouch[iX].endWaiting to true, if scroll is still animating, this will trigger scrollMomentum () at the end of the scroll loop
+   //set .endWaiting to true, if scroll is still animating, this will trigger scrollMomentum () at the end of the touch loop
    creaTouch[iX].endWaiting=true;
   
   if(creaTouch[iX].scrollY==true){
@@ -668,12 +666,12 @@ creaTouch[iX].endWaiting=false;
 	  //calculate the combined Yacceleration of the last 2 touchmove events
 	  Yacceleration=(creaTouch[iX].Ymomentum[2]/creaTouch[iX].Ymomentum[1])+(creaTouch[iX].Ymomentum[1]/creaTouch[iX].Ymomentum[0]);
 	  if(creaTouch[iX].Ymomentum[1]==0.1 && creaTouch[iX].Ymomentum[0]==0.1){Yacceleration=Yacceleration*5;}
-	    //this is always being changed/improved? so without going into great detail, this is the momentum algorithm
+	    //momentum
 	  average=1000*(Math.pow((creaTouch[iX].Ymomentum[2]+creaTouch[iX].Ymomentum[1]+creaTouch[iX].Ymomentum[0])/4, 2)*(Yacceleration/5));
 	  creaTouch[iX].scrollrY.scrollTotY=average;
 	  
 	}
-	//if speed threshold is not met, momentum is set to the distance of the last touchmove
+	//if speed threshold is not met, momentum is set to the distance of the last touchmove only
 	else{ average=creaTouch[iX].YtouchZ[1]}
 	//smoothing
 	smooth=average/creaTouch[iX].momentumEasing;
@@ -822,7 +820,7 @@ creaTouch[iX].endWaiting=false;
 	if(creaTouch[iX].Xmomentum[2]>0.1){
 	//calculate the combined Xacceleration of the last 2 touchmove events
 	  Xacceleration=(creaTouch[iX].Xmomentum[2]/creaTouch[iX].Xmomentum[1])+(creaTouch[iX].Xmomentum[1]/creaTouch[iX].Xmomentum[0]);
-		//this is always being changed/improved? so without going into great detail, this is the momentum algorithm
+		//momentum
 	  average=creaTouch[0].momentumMultiplier*(Math.pow((creaTouch[iX].Xmomentum[2]+creaTouch[iX].Xmomentum[1]+creaTouch[iX].Xmomentum[0])/4, 2)*(Xacceleration/10));
 	}
 	//if speed threshold is not met, momentum is set to the distance of the last touchmove

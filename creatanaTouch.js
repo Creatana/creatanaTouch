@@ -1,3 +1,6 @@
+// Copywrite: Clint Stegman
+// GNU 2.0 License. See LICENSE file
+
 if(typeof(creaTouch) == "undefined"){
    creaTouch=[];
    creaTouch[0]={};
@@ -49,19 +52,7 @@ function creatanaTouch(args){
     }
   }
     
-   /*
-   creaTouch[iX].xSwipeAngle = the angle required in degrees to trigger a swipe action in X direction
-   creaTouch[iX].xSwipeSpeed= distance required in css pixels to trigger a swipe action in X direction
-   
-   
-   
-   
-   
-   
-   Next we number the creaTouch[0].instances of this function, I made creaTouch[0].instances=[] earlier in the global variables, the first creaTouch[0].instances.length will = 0
-   */
-      //Next we push the number to the array, it will be recorded and the next creaTouch[0].instances.length will = 1
-       //process one instance at a time
+
   creaTouch[0].starting=true;
 
   creaTouch[iX].touchMove=false;
@@ -140,12 +131,6 @@ function creatanaTouch(args){
   //next
   snapChildren=childrenContainer.children;
   snapChildrenSub=[];
-    /*
-    for(i=0;i<snapChildren.length;i++){
-      //real child returns the last child in a tree (the first child with no children) it assumes that each has only one child
-      snapChildrenSub[i]=realChild(snapChildren[i]);
-    }
-    */
   
   if(creaTouch[iX].xSlideshow==true ){
 	creaTouch[iX].momentumMultiplier=10;

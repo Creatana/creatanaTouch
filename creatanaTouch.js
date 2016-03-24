@@ -131,9 +131,9 @@ function creatanaTouch(args){
   
   // dampen momentum for slideshow
   if(creaTouch[iX].xSlideshow==true ){
-	creaTouch[iX].momentumMultiplier=10;
+  creaTouch[iX].momentumMultiplier=10;
   }else{
-	creaTouch[iX].momentumMultiplier=100;
+  creaTouch[iX].momentumMultiplier=100;
   }
     // Check for instructions not to snap
   creaTouch[iX].scrollrY.noSnap=false;
@@ -152,8 +152,8 @@ function creatanaTouch(args){
     for(i=0;i<snapChildren.length;i++){
       if(creaTouch[iX].xSlideshow==true){
       
-	addToAttribute(snapChildren[i], 'style', 'width', maxScrollX+'px');
-	addToAttribute(snapChildren[i], 'style', 'text-align', 'center');
+  addToAttribute(snapChildren[i], 'style', 'width', maxScrollX+'px');
+  addToAttribute(snapChildren[i], 'style', 'text-align', 'center');
       }
       galWidth=snapChildren[i].offsetWidth+galWidth;
 
@@ -195,31 +195,31 @@ function creatanaTouch(args){
     if(creaTouch[iX].ySlideshow==true){
       galHeight=0;
       for(i=0;i<snapChildren.length;i++){
-	    if(creaTouch[iX].ySlideshow==true){
-	      addToAttribute(snapChildren[i], 'style', 'height', creaTouch[iX].maxScrollY+'px');
-	      addToAttribute(snapChildren[i], 'style', 'text-align', 'center');
-	    }
-	galHeight=snapChildren[i].offsetHeight+galHeight;
+      if(creaTouch[iX].ySlideshow==true){
+        addToAttribute(snapChildren[i], 'style', 'height', creaTouch[iX].maxScrollY+'px');
+        addToAttribute(snapChildren[i], 'style', 'text-align', 'center');
       }
-	//add margins for bounce back
+  galHeight=snapChildren[i].offsetHeight+galHeight;
+      }
+  //add margins for bounce back
       
       j=0;
       while(snapChildren[j].tagName==("SCRIPT"||"BR")){
-	j++
+  j++
       }
       addToAttribute(snapChildren[j], 'style', 'margin-top', creaTouch[iX].maxScrollY+'px');
       i=snapChildren.length-1;
       while(snapChildren[i].tagName==("SCRIPT"||"BR")){
-	i--
+  i--
       }
       addToAttribute(snapChildren[i], 'style', 'margin-bottom', creaTouch[iX].maxScrollY+'px');
       addToAttribute(snapChildren[j].parentNode, 'class', 'margin-snap');
       addToAttribute(snapChildren[j].parentNode.parentNode, 'class', 'margin-snap');
-	//set parent height to include margins
+  //set parent height to include margins
       addToAttribute(e, 'style', 'height', galHeight+(creaTouch[iX].maxScrollY*2)+'px')
       for(i=0;i<snapChildren.length;i++){
-	//calculate and store the end point of each element
-	snapChildren[i].nextY=snapChildren[i].offsetTop+snapChildren[i].offsetHeight;
+  //calculate and store the end point of each element
+  snapChildren[i].nextY=snapChildren[i].offsetTop+snapChildren[i].offsetHeight;
       }
     }
     
@@ -339,27 +339,27 @@ function swipetracker(event, e){
     if(creaTouch[iX].scrollAnimate==false){
       creaTouch[iX].touchMove=true;
       timeN= new Date().getTime();
-	    /*measure time between this and previous touchmove*/
+      /*measure time between this and previous touchmove*/
       creaTouch[iX].timeZ[1] = timeN-creaTouch[iX].timeNx;
       creaTouch[iX].timeNx=timeN;      
-	    /*measure time between this and touchstart*/
+      /*measure time between this and touchstart*/
       creaTouch[iX].timeZ[2] =timeN-creaTouch[iX].timeZ[0];
       creaTouch[iX].ect=event.targetTouches[0];
       /*measure X distance between this and previous touchmove*/
       creaTouch[iX].XtouchZ[1]=(creaTouch[iX].XtouchZ[0]-creaTouch[iX].ect.screenX);
       creaTouch[iX].XtouchZ[0]=event.targetTouches[0].screenX;
-	/*measure Y distance between this and previous touchmove*/
+  /*measure Y distance between this and previous touchmove*/
       creaTouch[iX].YtouchZ[1]=(creaTouch[iX].YtouchZ[0]-creaTouch[iX].ect.screenY);
       creaTouch[iX].YtouchZ[0]=event.targetTouches[0].screenY;
-	/*negative to positive*/
+  /*negative to positive*/
       if(creaTouch[iX].YtouchZ[1]<0){
-	creaTouch[iX].YtouchZ[1]=creaTouch[iX].YtouchZ[1]*(-1);
-	creaTouch[iX].subUp=true; creaTouch[iX].scrollrY.subUp=true;creaTouch[iX].subDown=false; creaTouch[iX].scrollrY.subDown=false;
+  creaTouch[iX].YtouchZ[1]=creaTouch[iX].YtouchZ[1]*(-1);
+  creaTouch[iX].subUp=true; creaTouch[iX].scrollrY.subUp=true;creaTouch[iX].subDown=false; creaTouch[iX].scrollrY.subDown=false;
       }
       else{ creaTouch[iX].subDown=true; creaTouch[iX].scrollrY.subDown=true;creaTouch[iX].subUp=false; creaTouch[iX].scrollrY.subUp=false; }
       if(creaTouch[iX].XtouchZ[1]<0){
-	creaTouch[iX].XtouchZ[1]=creaTouch[iX].XtouchZ[1]*(-1)
-	creaTouch[iX].subRight=true; creaTouch[iX].scrollrX.subRight=true;creaTouch[iX].subLeft=false; creaTouch[iX].scrollrX.subLeft=false }
+  creaTouch[iX].XtouchZ[1]=creaTouch[iX].XtouchZ[1]*(-1)
+  creaTouch[iX].subRight=true; creaTouch[iX].scrollrX.subRight=true;creaTouch[iX].subLeft=false; creaTouch[iX].scrollrX.subLeft=false }
       else{ creaTouch[iX].subLeft=true; creaTouch[iX].scrollrX.subLeft=true;creaTouch[iX].subRight=false; creaTouch[iX].scrollrX.subRight=false; }
       //store the previous 2 measurements and calculate Momentum (velocity/time)
       creaTouch[iX].Ymomentum[0]=creaTouch[iX].Ymomentum[1];
@@ -370,228 +370,228 @@ function swipetracker(event, e){
       creaTouch[iX].Xmomentum[1]=creaTouch[iX].Xmomentum[2];
       creaTouch[iX].Xmomentum[2]=creaTouch[iX].XtouchZ[1]/creaTouch[iX].timeZ[1] ;
       if(  creaTouch[iX].scrollX==true){
-	/*if X scrolling is already active, this is all we need to do.*/
-	  creaTouch[iX].XchangeSub=creaTouch[iX].XtouchZ[1];
+  /*if X scrolling is already active, this is all we need to do.*/
+    creaTouch[iX].XchangeSub=creaTouch[iX].XtouchZ[1];
       }else{
-	/*if movement is mostly X and Y is not scrolling, set motion to X*/
-	  if(creaTouch[iX].YtouchZ[1] < creaTouch[iX].XtouchZ[1] && creaTouch[iX].scrollY==false){      
-	  creaTouch[iX].Ymove=false;creaTouch[iX].Xmove=true;creaTouch[iX].noY=true;creaTouch[iX].noX=creaTouch[iX].noXb;
-	  creaTouch[iX].XchangeSub=creaTouch[iX].XtouchZ[1];
-	  }
+  /*if movement is mostly X and Y is not scrolling, set motion to X*/
+    if(creaTouch[iX].YtouchZ[1] < creaTouch[iX].XtouchZ[1] && creaTouch[iX].scrollY==false){      
+    creaTouch[iX].Ymove=false;creaTouch[iX].Xmove=true;creaTouch[iX].noY=true;creaTouch[iX].noX=creaTouch[iX].noXb;
+    creaTouch[iX].XchangeSub=creaTouch[iX].XtouchZ[1];
+    }
       }
       if(creaTouch[iX].scrollY==true){
-	creaTouch[iX].YchangeSub=creaTouch[iX].YtouchZ[1];
+  creaTouch[iX].YchangeSub=creaTouch[iX].YtouchZ[1];
       }else{
-	/*mostly Y and X is not scrolling*/
-	if((creaTouch[iX].YtouchZ[1]>creaTouch[iX].XtouchZ[1] && creaTouch[iX].scrollX==false) ){
-	  creaTouch[iX].Ymove=true;creaTouch[iX].Xmove=false;creaTouch[iX].noX=true;creaTouch[iX].noY=creaTouch[iX].noYb;
-	  creaTouch[iX].YchangeSub=creaTouch[iX].YtouchZ[1];
-	}
+  /*mostly Y and X is not scrolling*/
+  if((creaTouch[iX].YtouchZ[1]>creaTouch[iX].XtouchZ[1] && creaTouch[iX].scrollX==false) ){
+    creaTouch[iX].Ymove=true;creaTouch[iX].Xmove=false;creaTouch[iX].noX=true;creaTouch[iX].noY=creaTouch[iX].noYb;
+    creaTouch[iX].YchangeSub=creaTouch[iX].YtouchZ[1];
+  }
       }
 
       //if the creaTouch[0].swipeMaxTime is expired, stop looking for swipe actions
       if(  creaTouch[iX].timeZ[2]>creaTouch[0].swipeMaxTime ){creaTouch[iX].noX=true;creaTouch[iX].noY=true;}
-	  //if we're still looking for swipe actions
+    //if we're still looking for swipe actions
       if(  creaTouch[iX].noX==false){
-	    //if angle, speed, and .swipeMaxTime meet requirements
-	if( creaTouch[iX].XtouchZ[1]>=creaTouch[iX].xSwipeSpeed  && creaTouch[iX].YtouchZ[1] < (creaTouch[iX].XtouchZ[1]/creaTouch[iX].xSwipeAngle) && creaTouch[iX].timeZ[2]<=creaTouch[0].swipeMaxTime){
-	  creaTouch[iX].Xswipe.push(true);
-	}
-	    //if the previous statement passes twice
-	if(creaTouch[iX].Xswipe.length>=2){
-	  creaTouch[iX].swiped = true;
-	  swipeTrue(e);
-	  return;
-	}else{
-	    //if there is 1 swipe detected within 1/6 of the allowed time, stop here and listen for another, otherwise stop trying and continue to scrolling
-	  if(creaTouch[iX].timeZ[2]>(creaTouch[0].swipeMaxTime/6)){
-	    if(creaTouch[iX].Xswipe.length>=1){
-	      creaTouch[iX].noX=false;  return;
-	    }
-	    else{creaTouch[iX].noX=true;}
-	  }
-	}
+      //if angle, speed, and .swipeMaxTime meet requirements
+  if( creaTouch[iX].XtouchZ[1]>=creaTouch[iX].xSwipeSpeed  && creaTouch[iX].YtouchZ[1] < (creaTouch[iX].XtouchZ[1]/creaTouch[iX].xSwipeAngle) && creaTouch[iX].timeZ[2]<=creaTouch[0].swipeMaxTime){
+    creaTouch[iX].Xswipe.push(true);
+  }
+      //if the previous statement passes twice
+  if(creaTouch[iX].Xswipe.length>=2){
+    creaTouch[iX].swiped = true;
+    swipeTrue(e);
+    return;
+  }else{
+      //if there is 1 swipe detected within 1/6 of the allowed time, stop here and listen for another, otherwise stop trying and continue to scrolling
+    if(creaTouch[iX].timeZ[2]>(creaTouch[0].swipeMaxTime/6)){
+      if(creaTouch[iX].Xswipe.length>=1){
+        creaTouch[iX].noX=false;  return;
+      }
+      else{creaTouch[iX].noX=true;}
+    }
+  }
       }
       //repeat of above forY
       if(  creaTouch[iX].noY==false){
-	if( creaTouch[iX].YtouchZ[1]>=creaTouch[iX].ySwipeSpeed  && creaTouch[iX].XtouchZ[1] < (creaTouch[iX].YtouchZ[1]/creaTouch[iX].ySwipeAngle) && creaTouch[iX].timeZ[2]<=creaTouch[0].swipeMaxTime){
-	  creaTouch[iX].Yswipe.push(true);
-	}
-	if(creaTouch[iX].Yswipe.length>=2){
-	  creaTouch[iX].swiped = true;
-	  swipeTrue(e);
-	  return;
-	}else{
-	  if(creaTouch[iX].timeZ[2]>(creaTouch[0].swipeMaxTime/6)){
-	    if(creaTouch[iX].Yswipe.length>=1){
-	      creaTouch[iX].noY=false; return;
-	    }
-	    else{creaTouch[iX].noY=true;}}
-	  }
+  if( creaTouch[iX].YtouchZ[1]>=creaTouch[iX].ySwipeSpeed  && creaTouch[iX].XtouchZ[1] < (creaTouch[iX].YtouchZ[1]/creaTouch[iX].ySwipeAngle) && creaTouch[iX].timeZ[2]<=creaTouch[0].swipeMaxTime){
+    creaTouch[iX].Yswipe.push(true);
+  }
+  if(creaTouch[iX].Yswipe.length>=2){
+    creaTouch[iX].swiped = true;
+    swipeTrue(e);
+    return;
+  }else{
+    if(creaTouch[iX].timeZ[2]>(creaTouch[0].swipeMaxTime/6)){
+      if(creaTouch[iX].Yswipe.length>=1){
+        creaTouch[iX].noY=false; return;
+      }
+      else{creaTouch[iX].noY=true;}}
+    }
       }
       if(iOS==true){
-	if(creaTouch[iX].noX==true && creaTouch[iX].noY==true && creaTouch[iX].Ymove==true){  
-	  creaTouch[iX].scrollY=true;creaTouch[iX].scrollX=false;
-	}else{
-	  if(creaTouch[iX].noY==true && creaTouch[iX].noX==true && creaTouch[iX].Xmove==true){  
-	    creaTouch[iX].scrollX=true;creaTouch[iX].scrollY=false;
-	  }
-	}
+  if(creaTouch[iX].noX==true && creaTouch[iX].noY==true && creaTouch[iX].Ymove==true){  
+    creaTouch[iX].scrollY=true;creaTouch[iX].scrollX=false;
+  }else{
+    if(creaTouch[iX].noY==true && creaTouch[iX].noX==true && creaTouch[iX].Xmove==true){  
+      creaTouch[iX].scrollX=true;creaTouch[iX].scrollY=false;
+    }
+  }
       }
       else{
-	  //if we're not listening for swipe actions anymore, and moving in the Y direction
-	if(creaTouch[iX].noX==true && creaTouch[iX].noY==true && creaTouch[iX].Ymove==true){
-	  creaTouch[iX].scrollY=true;creaTouch[iX].scrollX=false;
-	  if(creaTouch[iX].scrollrY.scrollAnimate==true){return}
-	  creaTouch[iX].scrollAnimate=true;
-	  creaTouch[iX].scrollrY.scrollAnimate=true;
-	  //.touchSmooth divide to animate between points when a finger is on the screen still.
-	  creaTouch[iX].scrollTotalY=creaTouch[iX].YchangeSub/creaTouch[iX].touchSmooth;
-	  
-	  creaTouch[iX].Yprev1=creaTouch[iX].scrollrY.scrollTop;
-	    
-	  if(creaTouch[iX].scrollrY.subDown==true){
-	    //set the stop point
-	    creaTouch[iX].YchangeSub0=creaTouch[iX].Yprev1+creaTouch[iX].YchangeSub;
-	    //animation loop
-	    function loop1(){
-	      //get time
-	      creaTouch[iX].timeR1=new Date().getTime();
-	      //calculate & set the next scrollTop position
-	      creaTouch[iX].v1=creaTouch[iX].Yprev1+creaTouch[iX].scrollTotalY;
-	      creaTouch[iX].scrollrY.scrollTop=creaTouch[iX].v1;
-	    
-	      //check if scrolling is still needed
-	      if(creaTouch[iX].v1<creaTouch[iX].YchangeSub0){
-		//set creaTouch[iX].Yprev1 to v because next time around it will be the prev1ious Y position
-		creaTouch[iX].Yprev1=creaTouch[iX].v1;
-		//get the time in MS again at the end of the loop, then calculate how many MS have passed
-		creaTouch[iX].timeR2=new Date().getTime();
-		creaTouch[iX].timeR3=creaTouch[iX].timeR2-creaTouch[iX].timeR1;
-		if(creaTouch[iX].timeR3>creaTouch[0].refreshRate){
-		  creaTouch[iX].timeR3=creaTouch[0].refreshRate;creaTouch[iX].touchSmooth=1;
-		}else{creaTouch[iX].touchSmooth=creaTouch[0].touchSmoothOriginal}
-		  //execute loop again after the time specified in .refreshRate minus the time passed during this loop
-		setTimeout(function(){ loop1();} , creaTouch[0].refreshRate-creaTouch[iX].timeR3);
-		return;
-	      }
-	      else{
-		//scrolling is no longer needed, onto the next touchmove (or scrollMomentum if there was a touchend event)
-		creaTouch[iX].scrollAnimate=false;
-		creaTouch[iX].scrollrY.scrollAnimate=false;
-		return;
-	      }
-	      return;
-	    }
-	      //now that loop1() is defined, execute
-	    loop1();return;
-	  }else{ 
-	      //Y was true, but .subDown was false so .subUp must be true, 
-	      //everything here is the same as .subDown except that all math related to scrolling is opposite. ( + is -, and < is > )
-	      creaTouch[iX].YchangeSub0=creaTouch[iX].Yprev1-creaTouch[iX].YchangeSub;
-	      
-	      function loop2(){
-		creaTouch[iX].timeR1=new Date().getTime();
-		creaTouch[iX].v1=creaTouch[iX].Yprev1-creaTouch[iX].scrollTotalY
-		creaTouch[iX].scrollrY.scrollTop=creaTouch[iX].v1;
-	      
-		if(creaTouch[iX].v1>creaTouch[iX].YchangeSub0){
-		  creaTouch[iX].timeR2=new Date().getTime();
-		  creaTouch[iX].timeR3=creaTouch[iX].timeR2-creaTouch[iX].timeR1;
-		  creaTouch[iX].Yprev1=creaTouch[iX].v1;
-		  if(creaTouch[iX].timeR3>creaTouch[0].refreshRate){
-		    creaTouch[iX].timeR3=creaTouch[0].refreshRate;
-		    creaTouch[iX].touchSmooth=1;
-		  }else{
-		    creaTouch[iX].touchSmooth=creaTouch[0].touchSmoothOriginal
-		  }
-		  setTimeout(function(){ loop2();}, creaTouch[0].refreshRate-creaTouch[iX].timeR3);
-		  return;
-		}
-		else{ 
-		  creaTouch[iX].scrollAnimate=false;
-		  creaTouch[iX].scrollrY.scrollAnimate=false;
-		  return;
-		}
-		return;
-	      }
-	      loop2();
-	      return;
-	  }
-	}
-	  
-
-	  
-	  //if we're not listening for swipe actions anymore, and moving in the X direction
-	  //everything here is the same as Y except this uses scrollLeft, instead of scrollTop
-	if(creaTouch[iX].noY==true && creaTouch[iX].noX==true && creaTouch[iX].Xmove==true){  
-	    creaTouch[iX].scrollX=true;creaTouch[iX].scrollY=false;
-	    creaTouch[iX].scrollAnimate=true;
-	    creaTouch[iX].scrollrX.scrollAnimate=true;
-	    creaTouch[iX].scrollTotalX=creaTouch[iX].XchangeSub/creaTouch[iX].touchSmooth;
-	    creaTouch[iX].j=creaTouch[iX].scrollTotalX;
-	    creaTouch[iX].Xprev1=creaTouch[iX].scrollrX.scrollLeft;
-	    if(creaTouch[iX].scrollrX.subLeft==true){
-	      creaTouch[iX].XchangeSub0=creaTouch[iX].Xprev1+creaTouch[iX].XchangeSub;
-	      function loop3(){
-		creaTouch[iX].timeR1=new Date().getTime();
-		creaTouch[iX].v1=creaTouch[iX].Xprev1+creaTouch[iX].scrollTotalX
-		creaTouch[iX].scrollrX.scrollLeft=creaTouch[iX].v1;
-		if(creaTouch[iX].v1<creaTouch[iX].XchangeSub0){
-		  creaTouch[iX].timeR2=new Date().getTime();
-		  creaTouch[iX].timeR3=creaTouch[iX].timeR2-creaTouch[iX].timeR1;
-		  creaTouch[iX].Xprev1=creaTouch[iX].v1;
-		  if(creaTouch[iX].timeR3>creaTouch[0].refreshRate){
-		    creaTouch[iX].timeR3=creaTouch[0].refreshRate;
-		    creaTouch[iX].touchSmooth=1;
-		  }else{
-		    creaTouch[iX].touchSmooth=creaTouch[0].touchSmoothOriginal
-		  }
-		  setTimeout(function(){loop3();} , creaTouch[0].refreshRate-creaTouch[iX].timeR3);return;
-		}
-		else{
-		  creaTouch[iX].scrollAnimate=false;
-		  creaTouch[iX].scrollrX.scrollAnimate=false;
-		  return; 
-		}
-	      return;
-	      }
-	      loop3();
-	      return;
-	    }
-	    else{
-	      creaTouch[iX].XchangeSub0=creaTouch[iX].Xprev1-creaTouch[iX].XchangeSub;
-	      function loop4(){
-		creaTouch[iX].timeR1=new Date().getTime();
-		creaTouch[iX].v1=creaTouch[iX].Xprev1-creaTouch[iX].scrollTotalX
-		creaTouch[iX].scrollrX.scrollLeft=creaTouch[iX].v1;
-		if(creaTouch[iX].v1>creaTouch[iX].XchangeSub0){
-		  creaTouch[iX].timeR2=new Date().getTime();
-		  creaTouch[iX].timeR3=creaTouch[iX].timeR2-creaTouch[iX].timeR1;
-		  creaTouch[iX].Xprev1=creaTouch[iX].v1;
-		  if(creaTouch[iX].timeR3>creaTouch[0].refreshRate){
-		    creaTouch[iX].timeR3=creaTouch[0].refreshRate;
-		    creaTouch[iX].touchSmooth=1;
-		  }else{
-		    creaTouch[iX].touchSmooth=creaTouch[0].touchSmoothOriginal
-		  }
-		  setTimeout(function(){ loop4();}, creaTouch[0].refreshRate-creaTouch[iX].timeR3);
-		  return;
-		}
-		else{
-		  creaTouch[iX].scrollAnimate=false;
-		  creaTouch[iX].scrollrX.scrollAnimate=false;
-		  return;
-		}
-		return;
-	      }
-	      loop4();
-	      return;
-	    }
-	}
-	return;
+    //if we're not listening for swipe actions anymore, and moving in the Y direction
+  if(creaTouch[iX].noX==true && creaTouch[iX].noY==true && creaTouch[iX].Ymove==true){
+    creaTouch[iX].scrollY=true;creaTouch[iX].scrollX=false;
+    if(creaTouch[iX].scrollrY.scrollAnimate==true){return}
+    creaTouch[iX].scrollAnimate=true;
+    creaTouch[iX].scrollrY.scrollAnimate=true;
+    //.touchSmooth divide to animate between points when a finger is on the screen still.
+    creaTouch[iX].scrollTotalY=creaTouch[iX].YchangeSub/creaTouch[iX].touchSmooth;
+    
+    creaTouch[iX].Yprev1=creaTouch[iX].scrollrY.scrollTop;
+      
+    if(creaTouch[iX].scrollrY.subDown==true){
+      //set the stop point
+      creaTouch[iX].YchangeSub0=creaTouch[iX].Yprev1+creaTouch[iX].YchangeSub;
+      //animation loop
+      function loop1(){
+        //get time
+        creaTouch[iX].timeR1=new Date().getTime();
+        //calculate & set the next scrollTop position
+        creaTouch[iX].v1=creaTouch[iX].Yprev1+creaTouch[iX].scrollTotalY;
+        creaTouch[iX].scrollrY.scrollTop=creaTouch[iX].v1;
+      
+        //check if scrolling is still needed
+        if(creaTouch[iX].v1<creaTouch[iX].YchangeSub0){
+    //set creaTouch[iX].Yprev1 to v because next time around it will be the prev1ious Y position
+    creaTouch[iX].Yprev1=creaTouch[iX].v1;
+    //get the time in MS again at the end of the loop, then calculate how many MS have passed
+    creaTouch[iX].timeR2=new Date().getTime();
+    creaTouch[iX].timeR3=creaTouch[iX].timeR2-creaTouch[iX].timeR1;
+    if(creaTouch[iX].timeR3>creaTouch[0].refreshRate){
+      creaTouch[iX].timeR3=creaTouch[0].refreshRate;creaTouch[iX].touchSmooth=1;
+    }else{creaTouch[iX].touchSmooth=creaTouch[0].touchSmoothOriginal}
+      //execute loop again after the time specified in .refreshRate minus the time passed during this loop
+    setTimeout(function(){ loop1();} , creaTouch[0].refreshRate-creaTouch[iX].timeR3);
+    return;
+        }
+        else{
+    //scrolling is no longer needed, onto the next touchmove (or scrollMomentum if there was a touchend event)
+    creaTouch[iX].scrollAnimate=false;
+    creaTouch[iX].scrollrY.scrollAnimate=false;
+    return;
+        }
+        return;
       }
-	  
+        //now that loop1() is defined, execute
+      loop1();return;
+    }else{ 
+        //Y was true, but .subDown was false so .subUp must be true, 
+        //everything here is the same as .subDown except that all math related to scrolling is opposite. ( + is -, and < is > )
+        creaTouch[iX].YchangeSub0=creaTouch[iX].Yprev1-creaTouch[iX].YchangeSub;
+        
+        function loop2(){
+    creaTouch[iX].timeR1=new Date().getTime();
+    creaTouch[iX].v1=creaTouch[iX].Yprev1-creaTouch[iX].scrollTotalY
+    creaTouch[iX].scrollrY.scrollTop=creaTouch[iX].v1;
+        
+    if(creaTouch[iX].v1>creaTouch[iX].YchangeSub0){
+      creaTouch[iX].timeR2=new Date().getTime();
+      creaTouch[iX].timeR3=creaTouch[iX].timeR2-creaTouch[iX].timeR1;
+      creaTouch[iX].Yprev1=creaTouch[iX].v1;
+      if(creaTouch[iX].timeR3>creaTouch[0].refreshRate){
+        creaTouch[iX].timeR3=creaTouch[0].refreshRate;
+        creaTouch[iX].touchSmooth=1;
+      }else{
+        creaTouch[iX].touchSmooth=creaTouch[0].touchSmoothOriginal
+      }
+      setTimeout(function(){ loop2();}, creaTouch[0].refreshRate-creaTouch[iX].timeR3);
+      return;
+    }
+    else{ 
+      creaTouch[iX].scrollAnimate=false;
+      creaTouch[iX].scrollrY.scrollAnimate=false;
+      return;
+    }
+    return;
+        }
+        loop2();
+        return;
+    }
+  }
+    
+
+    
+    //if we're not listening for swipe actions anymore, and moving in the X direction
+    //everything here is the same as Y except this uses scrollLeft, instead of scrollTop
+  if(creaTouch[iX].noY==true && creaTouch[iX].noX==true && creaTouch[iX].Xmove==true){  
+      creaTouch[iX].scrollX=true;creaTouch[iX].scrollY=false;
+      creaTouch[iX].scrollAnimate=true;
+      creaTouch[iX].scrollrX.scrollAnimate=true;
+      creaTouch[iX].scrollTotalX=creaTouch[iX].XchangeSub/creaTouch[iX].touchSmooth;
+      creaTouch[iX].j=creaTouch[iX].scrollTotalX;
+      creaTouch[iX].Xprev1=creaTouch[iX].scrollrX.scrollLeft;
+      if(creaTouch[iX].scrollrX.subLeft==true){
+        creaTouch[iX].XchangeSub0=creaTouch[iX].Xprev1+creaTouch[iX].XchangeSub;
+        function loop3(){
+    creaTouch[iX].timeR1=new Date().getTime();
+    creaTouch[iX].v1=creaTouch[iX].Xprev1+creaTouch[iX].scrollTotalX
+    creaTouch[iX].scrollrX.scrollLeft=creaTouch[iX].v1;
+    if(creaTouch[iX].v1<creaTouch[iX].XchangeSub0){
+      creaTouch[iX].timeR2=new Date().getTime();
+      creaTouch[iX].timeR3=creaTouch[iX].timeR2-creaTouch[iX].timeR1;
+      creaTouch[iX].Xprev1=creaTouch[iX].v1;
+      if(creaTouch[iX].timeR3>creaTouch[0].refreshRate){
+        creaTouch[iX].timeR3=creaTouch[0].refreshRate;
+        creaTouch[iX].touchSmooth=1;
+      }else{
+        creaTouch[iX].touchSmooth=creaTouch[0].touchSmoothOriginal
+      }
+      setTimeout(function(){loop3();} , creaTouch[0].refreshRate-creaTouch[iX].timeR3);return;
+    }
+    else{
+      creaTouch[iX].scrollAnimate=false;
+      creaTouch[iX].scrollrX.scrollAnimate=false;
+      return; 
+    }
+        return;
+        }
+        loop3();
+        return;
+      }
+      else{
+        creaTouch[iX].XchangeSub0=creaTouch[iX].Xprev1-creaTouch[iX].XchangeSub;
+        function loop4(){
+    creaTouch[iX].timeR1=new Date().getTime();
+    creaTouch[iX].v1=creaTouch[iX].Xprev1-creaTouch[iX].scrollTotalX
+    creaTouch[iX].scrollrX.scrollLeft=creaTouch[iX].v1;
+    if(creaTouch[iX].v1>creaTouch[iX].XchangeSub0){
+      creaTouch[iX].timeR2=new Date().getTime();
+      creaTouch[iX].timeR3=creaTouch[iX].timeR2-creaTouch[iX].timeR1;
+      creaTouch[iX].Xprev1=creaTouch[iX].v1;
+      if(creaTouch[iX].timeR3>creaTouch[0].refreshRate){
+        creaTouch[iX].timeR3=creaTouch[0].refreshRate;
+        creaTouch[iX].touchSmooth=1;
+      }else{
+        creaTouch[iX].touchSmooth=creaTouch[0].touchSmoothOriginal
+      }
+      setTimeout(function(){ loop4();}, creaTouch[0].refreshRate-creaTouch[iX].timeR3);
+      return;
+    }
+    else{
+      creaTouch[iX].scrollAnimate=false;
+      creaTouch[iX].scrollrX.scrollAnimate=false;
+      return;
+    }
+    return;
+        }
+        loop4();
+        return;
+      }
+  }
+  return;
+      }
+    
     }
 
   return;
@@ -660,30 +660,30 @@ creaTouch[iX].endWaiting=false;
      
    
       if(!externalTotal){
-	creaTouch[iX].scrollrY.scrollTotY=1;
-	//speed threshold 0.1 is barely moving
-	if(creaTouch[iX].Ymomentum[2]>0.1){
-	  //calculate the combined Yacceleration of the last 2 touchmove events
-	  Yacceleration=(creaTouch[iX].Ymomentum[2]/creaTouch[iX].Ymomentum[1])+(creaTouch[iX].Ymomentum[1]/creaTouch[iX].Ymomentum[0]);
-	  if(creaTouch[iX].Ymomentum[1]==0.1 && creaTouch[iX].Ymomentum[0]==0.1){Yacceleration=Yacceleration*5;}
-	    //momentum
-	  average=1000*(Math.pow((creaTouch[iX].Ymomentum[2]+creaTouch[iX].Ymomentum[1]+creaTouch[iX].Ymomentum[0])/4, 2)*(Yacceleration/5));
-	  creaTouch[iX].scrollrY.scrollTotY=average;
-	  
-	}
-	//if speed threshold is not met, momentum is set to the distance of the last touchmove only
-	else{ average=creaTouch[iX].YtouchZ[1]}
-	//smoothing
-	smooth=average/creaTouch[iX].momentumEasing;
-	if (smooth<1){
-	  smooth=1;
-	  creaTouch[iX].scrollrY.scrollTotY=average;
-	  if(creaTouch[iX].scrollrY.scrollTotY<1){creaTouch[iX].scrollrY.scrollTotY=1}
-	}
-	//scroll speed / distance maximum cap
+  creaTouch[iX].scrollrY.scrollTotY=1;
+  //speed threshold 0.1 is barely moving
+  if(creaTouch[iX].Ymomentum[2]>0.1){
+    //calculate the combined Yacceleration of the last 2 touchmove events
+    Yacceleration=(creaTouch[iX].Ymomentum[2]/creaTouch[iX].Ymomentum[1])+(creaTouch[iX].Ymomentum[1]/creaTouch[iX].Ymomentum[0]);
+    if(creaTouch[iX].Ymomentum[1]==0.1 && creaTouch[iX].Ymomentum[0]==0.1){Yacceleration=Yacceleration*5;}
+      //momentum
+    average=1000*(Math.pow((creaTouch[iX].Ymomentum[2]+creaTouch[iX].Ymomentum[1]+creaTouch[iX].Ymomentum[0])/4, 2)*(Yacceleration/5));
+    creaTouch[iX].scrollrY.scrollTotY=average;
+    
+  }
+  //if speed threshold is not met, momentum is set to the distance of the last touchmove only
+  else{ average=creaTouch[iX].YtouchZ[1]}
+  //smoothing
+  smooth=average/creaTouch[iX].momentumEasing;
+  if (smooth<1){
+    smooth=1;
+    creaTouch[iX].scrollrY.scrollTotY=average;
+    if(creaTouch[iX].scrollrY.scrollTotY<1){creaTouch[iX].scrollrY.scrollTotY=1}
+  }
+  //scroll speed / distance maximum cap
         creaTouch[iX].scrollrY.scrollTotY1=creaTouch[iX].scrollrY.scrollHeight;
         if(creaTouch[iX].scrollrY.scrollTotY>creaTouch[iX].scrollrY.scrollTotY1){creaTouch[iX].scrollrY.scrollTotY=creaTouch[iX].scrollrY.scrollTotY1;}
-	
+  
       }
          // if externalTotal exists
         else{creaTouch[iX].scrollrY.scrollTotY=externalTotal}
@@ -703,51 +703,51 @@ creaTouch[iX].endWaiting=false;
         for(i=0;i<creaTouch[iX].scrollrY.children[0].children.length-1;i++){
           if(creaTouch[iX].scrollrY.children[0].children[i+1].offsetTop>stopPointY){
             stopPointY=creaTouch[iX].scrollrY.children[0].children[i].nextY
-	    creaTouch[iX].scrollrY.scrollTotY=(stopPointY-scrollYstart);
-	    break;
+      creaTouch[iX].scrollrY.scrollTotY=(stopPointY-scrollYstart);
+      break;
           }
-	}
+  }
         if(stopPointY>creaTouch[iX].endScrollContentY+100 && creaTouch[iX].scrollrY.scrollReturned==false){
            creaTouch[iX].scrollrY.scrollTotY=creaTouch[iX].scrollrY.scrollTotY/2;
-	}
+  }
       }
       
       else{
-	if(externalTotal){
+  if(externalTotal){
           creaTouch[iX].scrollrY=creaTouch[iX].scrollrY;
           creaTouch[iX].scrollrY.scrollTotY=externalTotal;
-	  stopPointY=creaTouch[iX].scrollrY.scrollTop+externalTotal;
-	  if(stopPointY>creaTouch[iX].endScrollContentY+100 && creaTouch[iX].scrollrY.scrollReturned==false && iOS==false){
+    stopPointY=creaTouch[iX].scrollrY.scrollTop+externalTotal;
+    if(stopPointY>creaTouch[iX].endScrollContentY+100 && creaTouch[iX].scrollrY.scrollReturned==false && iOS==false){
            creaTouch[iX].scrollrY.scrollTotY=creaTouch[iX].scrollrY.scrollTotY/2;
-	  }
-	}
+    }
+  }
       }
-	creaTouch[iX].scrollrY.scrollTotY=(creaTouch[iX].scrollrY.scrollTotY+19)/creaTouch[iX].momentumEasing;
+  creaTouch[iX].scrollrY.scrollTotY=(creaTouch[iX].scrollrY.scrollTotY+19)/creaTouch[iX].momentumEasing;
         creaTouch[iX].scrollrY.scrollMomentumAnimate=true;
       function loop1(){
-	creaTouch[iX].scrollrY.timeR1=new Date().getTime();
-	creaTouch[iX].scrollrY.newStatus=creaTouch[iX].scrollrY.scrollTotY-creaTouch[iX].scrollrY.status;
-	creaTouch[iX].scrollrY.scrollTo=creaTouch[iX].scrollrY.Yprev+creaTouch[iX].scrollrY.newStatus;
-	creaTouch[iX].scrollrY.scrollTop=creaTouch[iX].scrollrY.scrollTo;
-	creaTouch[iX].scrollrY.status=creaTouch[iX].scrollrY.status+(creaTouch[iX].scrollrY.newStatus/creaTouch[iX].momentumEasing);
-	if(creaTouch[iX].scrollrY.status<creaTouch[iX].scrollrY.scrollTotY && creaTouch[iX].scrollrY.scrollAnimate==false && creaTouch[iX].scrollrY.Yprev!=creaTouch[iX].scrollrY.scrollTo && creaTouch[iX].scrollrY.newStatus>1 && creaTouch[iX].scrollrY.touchActive==false){
-	  creaTouch[iX].scrollrY.timeR2=new Date().getTime();
-	  creaTouch[iX].scrollrY.timeR3=creaTouch[iX].scrollrY.timeR2-creaTouch[iX].scrollrY.timeR1;
-	  creaTouch[iX].scrollrY.Yprev=creaTouch[iX].scrollrY.scrollTo;
-	  if(creaTouch[iX].scrollrY.timeR3>creaTouch[0].refreshRate){
-	    creaTouch[iX].scrollrY.timeR3=creaTouch[0].refreshRate;
-	    creaTouch[iX].momentumEasing=creaTouch[iX].momentumEasing/2;
-	  }
-	  setTimeout(function(){loop1();return; }, creaTouch[0].refreshRate-creaTouch[iX].scrollrY.timeR3);
-	}
-	else{
-	  creaTouch[iX].scrollrY.scrollMomentumAnimate=false;
-	  if(creaTouch[iX].scrollrY.scrollReturned==false){
-	    scrollReturnY (creaTouch[iX].scrollrY, e);
-	  }
-	  return;
-	}
-	return;
+  creaTouch[iX].scrollrY.timeR1=new Date().getTime();
+  creaTouch[iX].scrollrY.newStatus=creaTouch[iX].scrollrY.scrollTotY-creaTouch[iX].scrollrY.status;
+  creaTouch[iX].scrollrY.scrollTo=creaTouch[iX].scrollrY.Yprev+creaTouch[iX].scrollrY.newStatus;
+  creaTouch[iX].scrollrY.scrollTop=creaTouch[iX].scrollrY.scrollTo;
+  creaTouch[iX].scrollrY.status=creaTouch[iX].scrollrY.status+(creaTouch[iX].scrollrY.newStatus/creaTouch[iX].momentumEasing);
+  if(creaTouch[iX].scrollrY.status<creaTouch[iX].scrollrY.scrollTotY && creaTouch[iX].scrollrY.scrollAnimate==false && creaTouch[iX].scrollrY.Yprev!=creaTouch[iX].scrollrY.scrollTo && creaTouch[iX].scrollrY.newStatus>1 && creaTouch[iX].scrollrY.touchActive==false){
+    creaTouch[iX].scrollrY.timeR2=new Date().getTime();
+    creaTouch[iX].scrollrY.timeR3=creaTouch[iX].scrollrY.timeR2-creaTouch[iX].scrollrY.timeR1;
+    creaTouch[iX].scrollrY.Yprev=creaTouch[iX].scrollrY.scrollTo;
+    if(creaTouch[iX].scrollrY.timeR3>creaTouch[0].refreshRate){
+      creaTouch[iX].scrollrY.timeR3=creaTouch[0].refreshRate;
+      creaTouch[iX].momentumEasing=creaTouch[iX].momentumEasing/2;
+    }
+    setTimeout(function(){loop1();return; }, creaTouch[0].refreshRate-creaTouch[iX].scrollrY.timeR3);
+  }
+  else{
+    creaTouch[iX].scrollrY.scrollMomentumAnimate=false;
+    if(creaTouch[iX].scrollrY.scrollReturned==false){
+      scrollReturnY (creaTouch[iX].scrollrY, e);
+    }
+    return;
+  }
+  return;
       }
       loop1();
     }
@@ -758,25 +758,25 @@ creaTouch[iX].endWaiting=false;
         scrollYstart=creaTouch[iX].scrollrY.scrollTop;
         stopPointY=scrollYstart-(creaTouch[iX].scrollrY.scrollTotY*creaTouch[iX].momentumEasing);
         for(i=0;i<creaTouch[iX].scrollrY.children[0].children.length-1;i++){
-	  if(creaTouch[iX].scrollrY.children[0].children[i].offsetTop<stopPointY &&
-	    creaTouch[iX].scrollrY.children[0].children[i+1].offsetTop>stopPointY){
-	    stopPointY=creaTouch[iX].scrollrY.children[0].children[i].offsetTop
-	    creaTouch[iX].scrollrY.scrollTotY=(scrollYstart-stopPointY);
-	    break;
-	  }
-	}
-	if(stopPointY<creaTouch[iX].scrollYmax-100 && creaTouch[iX].scrollrY.scrollReturned==false && iOS==false){
-	    creaTouch[iX].scrollrY.scrollTotY=creaTouch[iX].scrollrY.scrollTotY/2;
-	}
+    if(creaTouch[iX].scrollrY.children[0].children[i].offsetTop<stopPointY &&
+      creaTouch[iX].scrollrY.children[0].children[i+1].offsetTop>stopPointY){
+      stopPointY=creaTouch[iX].scrollrY.children[0].children[i].offsetTop
+      creaTouch[iX].scrollrY.scrollTotY=(scrollYstart-stopPointY);
+      break;
+    }
+  }
+  if(stopPointY<creaTouch[iX].scrollYmax-100 && creaTouch[iX].scrollrY.scrollReturned==false && iOS==false){
+      creaTouch[iX].scrollrY.scrollTotY=creaTouch[iX].scrollrY.scrollTotY/2;
+  }
       }
       
       else{if(externalTotal){
         creaTouch[iX].scrollrY=creaTouch[iX].scrollrY;
         creaTouch[iX].scrollrY.scrollTotY=externalTotal;
         stopPointY=creaTouch[iX].scrollrY.scrollTop-externalTotal;
-	if(stopPointY<creaTouch[iX].scrollYmax-100 && creaTouch[iX].scrollrY.scrollReturned==false){
-	    creaTouch[iX].scrollrY.scrollTotY=creaTouch[iX].scrollrY.scrollTotY/2;
-	}
+  if(stopPointY<creaTouch[iX].scrollYmax-100 && creaTouch[iX].scrollrY.scrollReturned==false){
+      creaTouch[iX].scrollrY.scrollTotY=creaTouch[iX].scrollrY.scrollTotY/2;
+  }
 
       }
       }
@@ -790,20 +790,20 @@ creaTouch[iX].endWaiting=false;
       creaTouch[iX].scrollrY.status=creaTouch[iX].scrollrY.status+(creaTouch[iX].scrollrY.newStatus/creaTouch[iX].momentumEasing);
       if(creaTouch[iX].scrollrY.status<creaTouch[iX].scrollrY.scrollTotY && creaTouch[iX].scrollrY.scrollAnimate==false && creaTouch[iX].scrollrY.Yprev!=creaTouch[iX].scrollrY.scrollTo && creaTouch[iX].scrollrY.newStatus>1 && creaTouch[iX].scrollrY.touchActive==false){
         creaTouch[iX].scrollrY.timeR2=new Date().getTime();
-	creaTouch[iX].scrollrY.timeR3=creaTouch[iX].scrollrY.timeR2-creaTouch[iX].scrollrY.timeR1;
-	creaTouch[iX].scrollrY.Yprev=creaTouch[iX].scrollrY.scrollTo;
-	if(creaTouch[iX].scrollrY.timeR3>creaTouch[0].refreshRate){
-	  creaTouch[iX].scrollrY.timeR3=creaTouch[0].refreshRate;
-	  creaTouch[iX].momentumEasing=creaTouch[iX].momentumEasing/2;
-	}
-	setTimeout(function(){loop2();return; }, creaTouch[0].refreshRate-creaTouch[iX].scrollrY.timeR3);
+  creaTouch[iX].scrollrY.timeR3=creaTouch[iX].scrollrY.timeR2-creaTouch[iX].scrollrY.timeR1;
+  creaTouch[iX].scrollrY.Yprev=creaTouch[iX].scrollrY.scrollTo;
+  if(creaTouch[iX].scrollrY.timeR3>creaTouch[0].refreshRate){
+    creaTouch[iX].scrollrY.timeR3=creaTouch[0].refreshRate;
+    creaTouch[iX].momentumEasing=creaTouch[iX].momentumEasing/2;
+  }
+  setTimeout(function(){loop2();return; }, creaTouch[0].refreshRate-creaTouch[iX].scrollrY.timeR3);
       }
       else{
         creaTouch[iX].scrollrY.scrollMomentumAnimate=false;
-	if(creaTouch[iX].scrollrY.scrollReturned==false){
-	  scrollReturnY (creaTouch[iX].scrollrY, e);
-	}
-	return;
+  if(creaTouch[iX].scrollrY.scrollReturned==false){
+    scrollReturnY (creaTouch[iX].scrollrY, e);
+  }
+  return;
       }
       return;
     }
@@ -815,29 +815,29 @@ creaTouch[iX].endWaiting=false;
 
    if(creaTouch[iX].scrollX==true){
       if(!externalTotal){
-	creaTouch[iX].scrollrX.scrollTotX=1;
-	//speed threshold 0.1 is barely moving
-	if(creaTouch[iX].Xmomentum[2]>0.1){
-	//calculate the combined Xacceleration of the last 2 touchmove events
-	  Xacceleration=(creaTouch[iX].Xmomentum[2]/creaTouch[iX].Xmomentum[1])+(creaTouch[iX].Xmomentum[1]/creaTouch[iX].Xmomentum[0]);
-		//momentum
-	  average=creaTouch[0].momentumMultiplier*(Math.pow((creaTouch[iX].Xmomentum[2]+creaTouch[iX].Xmomentum[1]+creaTouch[iX].Xmomentum[0])/4, 2)*(Xacceleration/10));
-	}
-	//if speed threshold is not met, momentum is set to the distance of the last touchmove
-	else{ average=creaTouch[iX].XtouchZ[1]}
-	//smoothing
-	smooth=average/creaTouch[iX].momentumEasing;
-	if (smooth<1){
-	  smooth=1;
-	  creaTouch[iX].scrollrX.scrollTotX=average;
-	  if(creaTouch[iX].scrollrX.scrollTotX<1){creaTouch[iX].scrollrX.scrollTotX=1}
-	}
-	else{
-	  creaTouch[iX].scrollrX.scrollTotX=average/smooth;
-	}
-	//scroll speed / distance maximum cap
-	creaTouch[iX].scrollrX.scrollTotX1=creaTouch[iX].scrollWidth/smooth;
-	if(creaTouch[iX].scrollrX.scrollTotX>creaTouch[iX].scrollrX.scrollTotX1){creaTouch[iX].scrollrX.scrollTotX=creaTouch[iX].scrollrX.scrollTotX1}
+  creaTouch[iX].scrollrX.scrollTotX=1;
+  //speed threshold 0.1 is barely moving
+  if(creaTouch[iX].Xmomentum[2]>0.1){
+  //calculate the combined Xacceleration of the last 2 touchmove events
+    Xacceleration=(creaTouch[iX].Xmomentum[2]/creaTouch[iX].Xmomentum[1])+(creaTouch[iX].Xmomentum[1]/creaTouch[iX].Xmomentum[0]);
+    //momentum
+    average=creaTouch[0].momentumMultiplier*(Math.pow((creaTouch[iX].Xmomentum[2]+creaTouch[iX].Xmomentum[1]+creaTouch[iX].Xmomentum[0])/4, 2)*(Xacceleration/10));
+  }
+  //if speed threshold is not met, momentum is set to the distance of the last touchmove
+  else{ average=creaTouch[iX].XtouchZ[1]}
+  //smoothing
+  smooth=average/creaTouch[iX].momentumEasing;
+  if (smooth<1){
+    smooth=1;
+    creaTouch[iX].scrollrX.scrollTotX=average;
+    if(creaTouch[iX].scrollrX.scrollTotX<1){creaTouch[iX].scrollrX.scrollTotX=1}
+  }
+  else{
+    creaTouch[iX].scrollrX.scrollTotX=average/smooth;
+  }
+  //scroll speed / distance maximum cap
+  creaTouch[iX].scrollrX.scrollTotX1=creaTouch[iX].scrollWidth/smooth;
+  if(creaTouch[iX].scrollrX.scrollTotX>creaTouch[iX].scrollrX.scrollTotX1){creaTouch[iX].scrollrX.scrollTotX=creaTouch[iX].scrollrX.scrollTotX1}
       }
       // if externalTotal exists
       else{creaTouch[iX].scrollrX.scrollTotX=externalTotal}
@@ -845,119 +845,119 @@ creaTouch[iX].endWaiting=false;
       creaTouch[iX].scrollrX.Xprev=creaTouch[iX].scrollrX.scrollLeft;
 
         
-	  
+    
     if(creaTouch[iX].scrollrX.subLeft==true){
-	if(!externalTotal && creaTouch[iX].scrollrX.noSnap==false){
-	  scrollXstart=creaTouch[iX].scrollrX.scrollLeft;
-	  stopPointX=scrollXstart+(creaTouch[iX].scrollrX.scrollTotX*creaTouch[iX].momentumEasing);
-	  if(stopPointX>creaTouch[iX].scrollrX.children[0].offsetWidth-(creaTouch[iX].scrollXmax*3)){stopPointX=creaTouch[iX].scrollrX.children[0].offsetWidth-(creaTouch[iX].scrollXmax*3);}
-	  for(i=0;i<creaTouch[iX].scrollrX.children[0].children.length-1;i++){
-	    if(creaTouch[iX].scrollrX.children[0].children[i+1].offsetLeft>stopPointX){
-	      stopPointX=creaTouch[iX].scrollrX.children[0].children[i].nextX
-	      creaTouch[iX].scrollrX.scrollTotX=(stopPointX-scrollXstart);
-	      break;
-	    }
-	  }
-	  if(stopPointX>creaTouch[iX].endScrollContentX+100 && creaTouch[iX].scrollrX.scrollReturned==false && iOS==false){
-	    creaTouch[iX].scrollrX.scrollTotX=creaTouch[iX].scrollrX.scrollTotX/2;
-	  }
-	}
-	else{
-	  if(externalTotal){
-	    creaTouch[iX].scrollrX=creaTouch[iX].scrollrX;
-	    creaTouch[iX].scrollrX.scrollTotX=externalTotal;
-	    stopPointX=creaTouch[iX].scrollrX.scrollLeft+externalTotal;
-	    if(stopPointX>creaTouch[iX].endScrollContentX+100 && creaTouch[iX].scrollrX.scrollReturned==false && iOS==false){
-	      creaTouch[iX].scrollrX.scrollTotX=creaTouch[iX].scrollrX.scrollTotX/2;
-	    }
-	  }
-	}
-	  creaTouch[iX].scrollrX.scrollTotX=(creaTouch[iX].scrollrX.scrollTotX+19)/creaTouch[iX].momentumEasing;
-	  creaTouch[iX].scrollrX.scrollMomentumAnimate=true;
-	function loop3(){
-	    creaTouch[iX].scrollrX.timeR1=new Date().getTime();
-	    creaTouch[iX].scrollrX.newStatus=creaTouch[iX].scrollrX.scrollTotX-creaTouch[iX].scrollrX.status;
-	    creaTouch[iX].scrollrX.scrollTo=creaTouch[iX].scrollrX.Xprev+creaTouch[iX].scrollrX.newStatus;
-	    creaTouch[iX].scrollrX.scrollLeft=creaTouch[iX].scrollrX.scrollTo;
-	    creaTouch[iX].scrollrX.status=creaTouch[iX].scrollrX.status+(creaTouch[iX].scrollrX.newStatus/creaTouch[iX].momentumEasing);
-	    if(creaTouch[iX].scrollrX.status<creaTouch[iX].scrollrX.scrollTotX && creaTouch[iX].scrollrX.scrollAnimate==false && 	creaTouch[iX].scrollrX.Xprev!=creaTouch[iX].scrollrX.scrollTo && creaTouch[iX].scrollrX.newStatus>1 && creaTouch[iX].scrollrX.touchActive==false){
-	      creaTouch[iX].scrollrX.timeR2=new Date().getTime();
-	      creaTouch[iX].scrollrX.timeR3=creaTouch[iX].scrollrX.timeR2-creaTouch[iX].scrollrX.timeR1;
-	      creaTouch[iX].scrollrX.Xprev=creaTouch[iX].scrollrX.scrollTo;
-	      if(creaTouch[iX].scrollrX.timeR3>creaTouch[0].refreshRate){
-		creaTouch[iX].scrollrX.timeR3=creaTouch[0].refreshRate;
-		creaTouch[iX].momentumEasing=creaTouch[iX].momentumEasing/2;
-	      }
-	      setTimeout(function(){loop3();return; }, creaTouch[0].refreshRate-creaTouch[iX].scrollrX.timeR3);
-	    }
-	    else{
-	      creaTouch[iX].scrollrX.scrollMomentumAnimate=false;
-	      if(creaTouch[iX].scrollrX.scrollReturned==false){
-		scrollReturnX (creaTouch[iX].scrollrX, e);
-	      }
-	      return;
-	    }
-	    ;return;
-	}
-	loop3();
+  if(!externalTotal && creaTouch[iX].scrollrX.noSnap==false){
+    scrollXstart=creaTouch[iX].scrollrX.scrollLeft;
+    stopPointX=scrollXstart+(creaTouch[iX].scrollrX.scrollTotX*creaTouch[iX].momentumEasing);
+    if(stopPointX>creaTouch[iX].scrollrX.children[0].offsetWidth-(creaTouch[iX].scrollXmax*3)){stopPointX=creaTouch[iX].scrollrX.children[0].offsetWidth-(creaTouch[iX].scrollXmax*3);}
+    for(i=0;i<creaTouch[iX].scrollrX.children[0].children.length-1;i++){
+      if(creaTouch[iX].scrollrX.children[0].children[i+1].offsetLeft>stopPointX){
+        stopPointX=creaTouch[iX].scrollrX.children[0].children[i].nextX
+        creaTouch[iX].scrollrX.scrollTotX=(stopPointX-scrollXstart);
+        break;
+      }
+    }
+    if(stopPointX>creaTouch[iX].endScrollContentX+100 && creaTouch[iX].scrollrX.scrollReturned==false && iOS==false){
+      creaTouch[iX].scrollrX.scrollTotX=creaTouch[iX].scrollrX.scrollTotX/2;
+    }
+  }
+  else{
+    if(externalTotal){
+      creaTouch[iX].scrollrX=creaTouch[iX].scrollrX;
+      creaTouch[iX].scrollrX.scrollTotX=externalTotal;
+      stopPointX=creaTouch[iX].scrollrX.scrollLeft+externalTotal;
+      if(stopPointX>creaTouch[iX].endScrollContentX+100 && creaTouch[iX].scrollrX.scrollReturned==false && iOS==false){
+        creaTouch[iX].scrollrX.scrollTotX=creaTouch[iX].scrollrX.scrollTotX/2;
+      }
+    }
+  }
+    creaTouch[iX].scrollrX.scrollTotX=(creaTouch[iX].scrollrX.scrollTotX+19)/creaTouch[iX].momentumEasing;
+    creaTouch[iX].scrollrX.scrollMomentumAnimate=true;
+  function loop3(){
+      creaTouch[iX].scrollrX.timeR1=new Date().getTime();
+      creaTouch[iX].scrollrX.newStatus=creaTouch[iX].scrollrX.scrollTotX-creaTouch[iX].scrollrX.status;
+      creaTouch[iX].scrollrX.scrollTo=creaTouch[iX].scrollrX.Xprev+creaTouch[iX].scrollrX.newStatus;
+      creaTouch[iX].scrollrX.scrollLeft=creaTouch[iX].scrollrX.scrollTo;
+      creaTouch[iX].scrollrX.status=creaTouch[iX].scrollrX.status+(creaTouch[iX].scrollrX.newStatus/creaTouch[iX].momentumEasing);
+      if(creaTouch[iX].scrollrX.status<creaTouch[iX].scrollrX.scrollTotX && creaTouch[iX].scrollrX.scrollAnimate==false &&  creaTouch[iX].scrollrX.Xprev!=creaTouch[iX].scrollrX.scrollTo && creaTouch[iX].scrollrX.newStatus>1 && creaTouch[iX].scrollrX.touchActive==false){
+        creaTouch[iX].scrollrX.timeR2=new Date().getTime();
+        creaTouch[iX].scrollrX.timeR3=creaTouch[iX].scrollrX.timeR2-creaTouch[iX].scrollrX.timeR1;
+        creaTouch[iX].scrollrX.Xprev=creaTouch[iX].scrollrX.scrollTo;
+        if(creaTouch[iX].scrollrX.timeR3>creaTouch[0].refreshRate){
+    creaTouch[iX].scrollrX.timeR3=creaTouch[0].refreshRate;
+    creaTouch[iX].momentumEasing=creaTouch[iX].momentumEasing/2;
+        }
+        setTimeout(function(){loop3();return; }, creaTouch[0].refreshRate-creaTouch[iX].scrollrX.timeR3);
       }
       else{
-	if(!externalTotal && creaTouch[iX].scrollrX.noSnap==false){
-	  scrollXstart=creaTouch[iX].scrollrX.scrollLeft;
-	  stopPointX=scrollXstart-(creaTouch[iX].scrollrX.scrollTotX*creaTouch[iX].momentumEasing);
-	  if(stopPointX<creaTouch[iX].scrollXmax){stopPointX=creaTouch[iX].scrollXmax+10;}
-	  for(i=0;i<creaTouch[iX].scrollrX.children[0].children.length-1;i++){
-	    if(creaTouch[iX].scrollrX.children[0].children[i].offsetLeft<stopPointX &&
-	      creaTouch[iX].scrollrX.children[0].children[i+1].offsetLeft>stopPointX){
-	      stopPointX=creaTouch[iX].scrollrX.children[0].children[i].offsetLeft
-	      creaTouch[iX].scrollrX.scrollTotX=(scrollXstart-stopPointX);
-	      break;
-	    }
-	  }
-	  if(stopPointX<creaTouch[iX].scrollXmax-100 && creaTouch[iX].scrollrX.scrollReturned==false){
-	    creaTouch[iX].scrollrX.scrollTotX=creaTouch[iX].scrollrX.scrollTotX/2;
-	  }
-	}
-	
-	else{
-	  if(externalTotal){
-	    creaTouch[iX].scrollrX=creaTouch[iX].scrollrX;
-	    creaTouch[iX].scrollrX.scrollTotX=externalTotal;
-	    stopPointX=creaTouch[iX].scrollrX.scrollLeft-externalTotal;
-	    if(stopPointX<creaTouch[iX].scrollXmax-100 && creaTouch[iX].scrollrX.scrollReturned==false){
-		creaTouch[iX].scrollrX.scrollTotX=creaTouch[iX].scrollrX.scrollTotX/2;
-	    }
+        creaTouch[iX].scrollrX.scrollMomentumAnimate=false;
+        if(creaTouch[iX].scrollrX.scrollReturned==false){
+    scrollReturnX (creaTouch[iX].scrollrX, e);
+        }
+        return;
+      }
+      ;return;
+  }
+  loop3();
+      }
+      else{
+  if(!externalTotal && creaTouch[iX].scrollrX.noSnap==false){
+    scrollXstart=creaTouch[iX].scrollrX.scrollLeft;
+    stopPointX=scrollXstart-(creaTouch[iX].scrollrX.scrollTotX*creaTouch[iX].momentumEasing);
+    if(stopPointX<creaTouch[iX].scrollXmax){stopPointX=creaTouch[iX].scrollXmax+10;}
+    for(i=0;i<creaTouch[iX].scrollrX.children[0].children.length-1;i++){
+      if(creaTouch[iX].scrollrX.children[0].children[i].offsetLeft<stopPointX &&
+        creaTouch[iX].scrollrX.children[0].children[i+1].offsetLeft>stopPointX){
+        stopPointX=creaTouch[iX].scrollrX.children[0].children[i].offsetLeft
+        creaTouch[iX].scrollrX.scrollTotX=(scrollXstart-stopPointX);
+        break;
+      }
+    }
+    if(stopPointX<creaTouch[iX].scrollXmax-100 && creaTouch[iX].scrollrX.scrollReturned==false){
+      creaTouch[iX].scrollrX.scrollTotX=creaTouch[iX].scrollrX.scrollTotX/2;
+    }
+  }
+  
+  else{
+    if(externalTotal){
+      creaTouch[iX].scrollrX=creaTouch[iX].scrollrX;
+      creaTouch[iX].scrollrX.scrollTotX=externalTotal;
+      stopPointX=creaTouch[iX].scrollrX.scrollLeft-externalTotal;
+      if(stopPointX<creaTouch[iX].scrollXmax-100 && creaTouch[iX].scrollrX.scrollReturned==false){
+    creaTouch[iX].scrollrX.scrollTotX=creaTouch[iX].scrollrX.scrollTotX/2;
+      }
 
-	  }
-	}
-	creaTouch[iX].scrollrX.scrollTotX=(creaTouch[iX].scrollrX.scrollTotX+19)/creaTouch[iX].momentumEasing;
-	creaTouch[iX].scrollrX.scrollMomentumAnimate=true;
+    }
+  }
+  creaTouch[iX].scrollrX.scrollTotX=(creaTouch[iX].scrollrX.scrollTotX+19)/creaTouch[iX].momentumEasing;
+  creaTouch[iX].scrollrX.scrollMomentumAnimate=true;
       function loop4(){
-	  creaTouch[iX].scrollrX.timeR1=new Date().getTime();
-	  creaTouch[iX].scrollrX.newStatus=creaTouch[iX].scrollrX.scrollTotX-creaTouch[iX].scrollrX.status;
-	  creaTouch[iX].scrollrX.scrollTo=creaTouch[iX].scrollrX.Xprev-creaTouch[iX].scrollrX.newStatus;
-	  creaTouch[iX].scrollrX.scrollLeft=creaTouch[iX].scrollrX.scrollTo;
-	  creaTouch[iX].scrollrX.status=creaTouch[iX].scrollrX.status+(creaTouch[iX].scrollrX.newStatus/creaTouch[iX].momentumEasing);
-	  if(creaTouch[iX].scrollrX.status<creaTouch[iX].scrollrX.scrollTotX && creaTouch[iX].scrollrX.scrollAnimate==false && creaTouch[iX].scrollrX.Xprev!=creaTouch[iX].scrollrX.scrollTo && creaTouch[iX].scrollrX.newStatus>1 && creaTouch[iX].scrollrX.touchActive==false){
-	    creaTouch[iX].scrollrX.timeR2=new Date().getTime();
-	    creaTouch[iX].scrollrX.timeR3=creaTouch[iX].scrollrX.timeR2-creaTouch[iX].scrollrX.timeR1;
-	    creaTouch[iX].scrollrX.Xprev=creaTouch[iX].scrollrX.scrollTo;
-	    if(creaTouch[iX].scrollrX.timeR3>creaTouch[0].refreshRate){
-	      creaTouch[iX].scrollrX.timeR3=creaTouch[0].refreshRate;
-	      creaTouch[iX].momentumEasing=creaTouch[iX].momentumEasing/2;
-	    }
-	    setTimeout(function(){loop4();return; }, creaTouch[0].refreshRate-creaTouch[iX].scrollrX.timeR3);
-	    
-	  }
-	else{
-	  creaTouch[iX].scrollrX.scrollMomentumAnimate=false;
-	  if(creaTouch[iX].scrollrX.scrollReturned==false){
-	      scrollReturnX (creaTouch[iX].scrollrX, e);
-	  }
-	  return;
-	  
-	}
-	return;
+    creaTouch[iX].scrollrX.timeR1=new Date().getTime();
+    creaTouch[iX].scrollrX.newStatus=creaTouch[iX].scrollrX.scrollTotX-creaTouch[iX].scrollrX.status;
+    creaTouch[iX].scrollrX.scrollTo=creaTouch[iX].scrollrX.Xprev-creaTouch[iX].scrollrX.newStatus;
+    creaTouch[iX].scrollrX.scrollLeft=creaTouch[iX].scrollrX.scrollTo;
+    creaTouch[iX].scrollrX.status=creaTouch[iX].scrollrX.status+(creaTouch[iX].scrollrX.newStatus/creaTouch[iX].momentumEasing);
+    if(creaTouch[iX].scrollrX.status<creaTouch[iX].scrollrX.scrollTotX && creaTouch[iX].scrollrX.scrollAnimate==false && creaTouch[iX].scrollrX.Xprev!=creaTouch[iX].scrollrX.scrollTo && creaTouch[iX].scrollrX.newStatus>1 && creaTouch[iX].scrollrX.touchActive==false){
+      creaTouch[iX].scrollrX.timeR2=new Date().getTime();
+      creaTouch[iX].scrollrX.timeR3=creaTouch[iX].scrollrX.timeR2-creaTouch[iX].scrollrX.timeR1;
+      creaTouch[iX].scrollrX.Xprev=creaTouch[iX].scrollrX.scrollTo;
+      if(creaTouch[iX].scrollrX.timeR3>creaTouch[0].refreshRate){
+        creaTouch[iX].scrollrX.timeR3=creaTouch[0].refreshRate;
+        creaTouch[iX].momentumEasing=creaTouch[iX].momentumEasing/2;
+      }
+      setTimeout(function(){loop4();return; }, creaTouch[0].refreshRate-creaTouch[iX].scrollrX.timeR3);
+      
+    }
+  else{
+    creaTouch[iX].scrollrX.scrollMomentumAnimate=false;
+    if(creaTouch[iX].scrollrX.scrollReturned==false){
+        scrollReturnX (creaTouch[iX].scrollrX, e);
+    }
+    return;
+    
+  }
+  return;
       }
       loop4();
       
@@ -984,25 +984,25 @@ function scrollReturnX (scrollr, e){
   var iX = e.creatanaTouchInstance;
   i=0; creaTouch[iX].scrollrX.scrollReturned=true
     if(scrollr.scrollLeft<creaTouch[iX].scrollXmax && scrollr.noSnap==false){
-	scrollr.subLeft=true; scrollr.subRight=false;scrollr.scrollY=false;scrollr.scrollX=true;
-	scrollr.subLeft=true; scrollr.subRight=false;creaTouch[iX].scrollY=false;creaTouch[iX].scrollX=true;
-	scrollr.touchActive=false;creaTouch[iX].touchActive=false;
-	scrollr.scrollAnimate=false;creaTouch[iX].scrollAnimate=false;
-	creaTouch[iX].scrollrX=scrollr;
-	n=creaTouch[iX].scrollXmax;
-	nx=(creaTouch[iX].scrollXmax-scrollr.scrollLeft);
-	scrollMomentum(e, nx);
-	
+  scrollr.subLeft=true; scrollr.subRight=false;scrollr.scrollY=false;scrollr.scrollX=true;
+  scrollr.subLeft=true; scrollr.subRight=false;creaTouch[iX].scrollY=false;creaTouch[iX].scrollX=true;
+  scrollr.touchActive=false;creaTouch[iX].touchActive=false;
+  scrollr.scrollAnimate=false;creaTouch[iX].scrollAnimate=false;
+  creaTouch[iX].scrollrX=scrollr;
+  n=creaTouch[iX].scrollXmax;
+  nx=(creaTouch[iX].scrollXmax-scrollr.scrollLeft);
+  scrollMomentum(e, nx);
+  
     }
     else{
-	if(scrollr.scrollLeft>creaTouch[iX].endScrollContentX && scrollr.noSnap==false){
-	scrollr.subLeft=false; scrollr.subRight=true;scrollr.scrollY=false;scrollr.scrollX=true;
-	scrollr.subLeft=false; scrollr.subRight=true;creaTouch[iX].scrollY=false;creaTouch[iX].scrollX=true;
-	scrollr.touchActive=false;creaTouch[iX].touchActive=false;
-	scrollr.scrollAnimate=false;creaTouch[iX].scrollAnimate=false;
-	creaTouch[iX].scrollrX=scrollr;
-	scrollMomentum(e, (scrollr.scrollLeft-creaTouch[iX].endScrollContentX))
-	}
+  if(scrollr.scrollLeft>creaTouch[iX].endScrollContentX && scrollr.noSnap==false){
+  scrollr.subLeft=false; scrollr.subRight=true;scrollr.scrollY=false;scrollr.scrollX=true;
+  scrollr.subLeft=false; scrollr.subRight=true;creaTouch[iX].scrollY=false;creaTouch[iX].scrollX=true;
+  scrollr.touchActive=false;creaTouch[iX].touchActive=false;
+  scrollr.scrollAnimate=false;creaTouch[iX].scrollAnimate=false;
+  creaTouch[iX].scrollrX=scrollr;
+  scrollMomentum(e, (scrollr.scrollLeft-creaTouch[iX].endScrollContentX))
+  }
     }
 }
 
@@ -1011,25 +1011,25 @@ function scrollReturnY (scrollr, e){
   var iX = e.creatanaTouchInstance;
   i=0; creaTouch[iX].scrollrY.scrollReturned=true
     if(scrollr.scrollTop>creaTouch[iX].scrollYmax && scrollr.noSnap==false){
-	scrollr.scrollY=true;scrollr.scrollX=false;
-	scrollr.subUp=false; scrollr.subDown=true;creaTouch[iX].scrollY=true;creaTouch[iX].scrollX=false;
-	scrollr.touchActive=false;creaTouch[iX].touchActive=false;
-	scrollr.scrollAnimate=false;creaTouch[iX].scrollAnimate=false;
-	creaTouch[iX].scrollrY=scrollr;
-	n=creaTouch[iX].scrollYmax;
-	nx=(creaTouch[iX].scrollYmax-scrollr.scrollTop);
-	scrollMomentum(e, nx);
-	
+  scrollr.scrollY=true;scrollr.scrollX=false;
+  scrollr.subUp=false; scrollr.subDown=true;creaTouch[iX].scrollY=true;creaTouch[iX].scrollX=false;
+  scrollr.touchActive=false;creaTouch[iX].touchActive=false;
+  scrollr.scrollAnimate=false;creaTouch[iX].scrollAnimate=false;
+  creaTouch[iX].scrollrY=scrollr;
+  n=creaTouch[iX].scrollYmax;
+  nx=(creaTouch[iX].scrollYmax-scrollr.scrollTop);
+  scrollMomentum(e, nx);
+  
     }
     else{
-	if(scrollr.scrollTop<creaTouch[iX].endScrollContentY && scrollr.noSnap==false){
-	scrollr.scrollY=true;scrollr.scrollX=false;
-	scrollr.subUp=true; scrollr.subDown=false;creaTouch[iX].scrollY=true;creaTouch[iX].scrollX=false;
-	scrollr.touchActive=false;creaTouch[iX].touchActive=false;
-	scrollr.scrollAnimate=false;creaTouch[iX].scrollAnimate=false;
-	creaTouch[iX].scrollrY=scrollr;
-	scrollMomentum(e, (scrollr.scrollTop-creaTouch[iX].endScrollContentY))
-	}
+  if(scrollr.scrollTop<creaTouch[iX].endScrollContentY && scrollr.noSnap==false){
+  scrollr.scrollY=true;scrollr.scrollX=false;
+  scrollr.subUp=true; scrollr.subDown=false;creaTouch[iX].scrollY=true;creaTouch[iX].scrollX=false;
+  scrollr.touchActive=false;creaTouch[iX].touchActive=false;
+  scrollr.scrollAnimate=false;creaTouch[iX].scrollAnimate=false;
+  creaTouch[iX].scrollrY=scrollr;
+  scrollMomentum(e, (scrollr.scrollTop-creaTouch[iX].endScrollContentY))
+  }
     }
 }
  
@@ -1037,21 +1037,21 @@ function findScrollParentY(e){
   var iX = e.creatanaTouchInstance;
       epScroll2=window.getComputedStyle(e).getPropertyValue("overflow-y");
     if(epScroll2=='scroll'){
-	return e;
+  return e;
     }else{
       ep=getAllParents(e);
       ep.reverse();
       for(i=0;i<ep.length;i++){
-	  if(ep[i]!=document){
-	  epScroll2=window.getComputedStyle(ep[i]).getPropertyValue("overflow-y");
-	    if(epScroll2 =='scroll'){
-	      if(ep[i]==document.body.parentNode && webkit==true){
-		ep[i]=document.body;}
-	      if(i<1){ ep[i].scrollReturnedY=true;}
-	      return ep[i];
-	      
-	    }
-	  }
+    if(ep[i]!=document){
+    epScroll2=window.getComputedStyle(ep[i]).getPropertyValue("overflow-y");
+      if(epScroll2 =='scroll'){
+        if(ep[i]==document.body.parentNode && webkit==true){
+    ep[i]=document.body;}
+        if(i<1){ ep[i].scrollReturnedY=true;}
+        return ep[i];
+        
+      }
+    }
       }
       docscroll2=window.getComputedStyle(document.body).getPropertyValue("overflow-y");
       if(docscroll2=='hidden'){return false;}
@@ -1070,15 +1070,15 @@ function findScrollParentX(e){
     ep=getAllParents(e);
     ep.reverse();
     for(i=0;i<ep.length;i++){
-	if(ep[i]!=document){
-	  epScroll=window.getComputedStyle(ep[i]).getPropertyValue("overflow-x");
-	  if(epScroll=='scroll' ){
-	    if(i<1){
-	      ep[i].scrollReturnedX=true;
-	    };
-	    return ep[i]
-	  }
-	}
+  if(ep[i]!=document){
+    epScroll=window.getComputedStyle(ep[i]).getPropertyValue("overflow-x");
+    if(epScroll=='scroll' ){
+      if(i<1){
+        ep[i].scrollReturnedX=true;
+      };
+      return ep[i]
+    }
+  }
     }
     docscroll=window.getComputedStyle(document.body).getPropertyValue("overflow-x");
     if(docscroll=='hidden'){return false;}
@@ -1094,14 +1094,14 @@ function findScrollParentX(e){
    while(currentChildren.length>=1){
     nextChildren=[];
       for(i=0;i<currentChildren.length;i++){
-	currentChildrenScroll1=window.getComputedStyle(currentChildren[i]).getPropertyValue("overflow");
-	currentChildrenScroll2=window.getComputedStyle(currentChildren[i]).getPropertyValue("overflow-y");
-	for(creaTouch[iX].j=0;creaTouch[iX].j<currentChildren[i].children.length;creaTouch[iX].j++){
-	    nextChildren.push(currentChildren[i].children[creaTouch[iX].j]);
-	  }
-	if(!currentChildren[i].creatanaTouchInstance && (currentChildrenScroll1 =='scroll' || currentChildrenScroll2 =='scroll')){
-	  scrollingChildren.push(currentChildren[i])
-	}
+  currentChildrenScroll1=window.getComputedStyle(currentChildren[i]).getPropertyValue("overflow");
+  currentChildrenScroll2=window.getComputedStyle(currentChildren[i]).getPropertyValue("overflow-y");
+  for(creaTouch[iX].j=0;creaTouch[iX].j<currentChildren[i].children.length;creaTouch[iX].j++){
+      nextChildren.push(currentChildren[i].children[creaTouch[iX].j]);
+    }
+  if(!currentChildren[i].creatanaTouchInstance && (currentChildrenScroll1 =='scroll' || currentChildrenScroll2 =='scroll')){
+    scrollingChildren.push(currentChildren[i])
+  }
       }
    currentChildren=nextChildren
    }
@@ -1114,13 +1114,13 @@ return scrollingChildren;
    while(currentChildren.length>=1){
     nextChildren=[];
       for(i=0;i<currentChildren.length;i++){
-	currentChildrenScroll2=window.getComputedStyle(currentChildren[i]).getPropertyValue("overflow-x");
-	for(creaTouch[iX].j=0;creaTouch[iX].j<currentChildren[i].children.length;creaTouch[iX].j++){
-	    nextChildren.push(currentChildren[i].children[creaTouch[iX].j]);}
-	    if(!currentChildren[i].creatanaTouchInstance && currentChildrenScroll2 =='scroll'){ scrollingChildren.push(currentChildren[i]);}
-	
-	}
-	currentChildren=nextChildren
+    currentChildrenScroll2=window.getComputedStyle(currentChildren[i]).getPropertyValue("overflow-x");
+    for( var j=0; j < currentChildren[i].children.length; j++){
+      nextChildren.push(currentChildren[i].children[j]);}
+      if(!currentChildren[i].creatanaTouchInstance && currentChildrenScroll2 =='scroll'){ scrollingChildren.push(currentChildren[i]);}
+    
+    }
+  currentChildren=nextChildren
    }
 return scrollingChildren;
  }
